@@ -1,68 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Typography */
+  --font-primary: 'Quicksand', sans-serif;
+  --second-family: 'Poppins', sans-serif;
+  --third-family: 'Urbanist', sans-serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* Colors */
+  --white: #fefefe;
+  --background: #f9f1eb;
+  --main-text: #202020;
+  --addition-text: #525252;
+  --accent-color: #234d2e;
+  --accent-color-super-light: #def2d6;
+  --accent-color-light: #7cb184;
+  --accent-color-dark: #1c3e24;
+  --accent-color-hover: #2d6b41;
+  --red: #d00;
+  --placeholder: #818181;
+  --icon: #404040;
+  --table: #d2e7d3;
+  --stroke-table: #ece2da;
+  --success: #299c4e;
+  --warning: #ee9229;
+  --stroke---input: rgba(102, 102, 102, 0.35);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-primary);
+  background-color: var(--background);
+  color: var(--main-text);
 }
