@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
 
 import AdminLayout from './pages/AdminLayout';
 import DashboardPage from './pages/DashboardPage';
 import OrdersPage from './pages/OrdersPage';
 import ProductsPage from './pages/SalesPage'; 
 import CustomersPage from './pages/CustomerPage';
-import './App.css'
 
 function App() {
 
