@@ -4,7 +4,7 @@ import { ConfigProvider } from 'antd';
 import AdminLayout from './pages/AdminLayout';
 import DashboardPage from './pages/DashboardPage';
 import OrdersPage from './pages/OrdersPage';
-import ProductsPage from './pages/SalesPage'; // ✅ Додаємо імпорт ProductsPage
+import ProductsPage from './pages/SalesPage'; 
 import CustomersPage from './pages/CustomerPage';
 import './App.css'
 
