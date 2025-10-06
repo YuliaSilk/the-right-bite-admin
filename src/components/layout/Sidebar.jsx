@@ -14,13 +14,13 @@ export default function Sidebar({  setCollapsed }) {
   return (
    
     <aside
-        className="w-64  bg-white pt-10 shadow-sm flex flex-col"
+        className="w-[260px]  bg-white pt-10 shadow-sm flex flex-col"
     >
         <div className="h-16 flex items-center justify-center ">
             <h1 className="text-accent font-bold text-lg hidden">RIGHT BITE</h1>
         </div>
      
-        <nav className="flex-1 px-4 space-y-2 text-main-text">
+        <nav className="flex-1 w-[260px] px-4 space-y-2 text-main-text">
             <ul className="space-y-2 list-none flex flex-col">
             {navItems.map((item) => (
             <li key={item.key}>

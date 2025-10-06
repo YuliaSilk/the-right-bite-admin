@@ -1,36 +1,13 @@
-// src/pages/DashboardPage.jsx
 import React, {useState, useEffect} from 'react';
 import DashboardCard from '../components/DashboardCard';
 import { AreaChartOutlined, DollarCircleOutlined, UsergroupAddOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { getTotalCustomers, getTotalOrders, getTotalSales, getAllOrders } from "../api/ordersAPI";
 import { message, Row, Col } from 'antd';
+import SalesChart from '../components/SalesChart';
+import OrdersChart from '../components/OrdersChart';
+import CustomersChart from '../components/CustomersChart';
 
-const dashboardMetrics = [
-  { 
-    title: 'Total Sales', 
-    value: '€12k', 
-    change: '+10.4%', 
-    changeValue: '$447', 
-    icon: <DollarCircleOutlined className="text-xl text-success" />, 
-    bgColor: 'bg-green-100' 
-  },
-  { 
-    title: 'Total Orders', 
-    value: '1024', 
-    change: '+22.8%', 
-    changeValue: '$235', 
-    icon: <ShoppingCartOutlined className="text-xl text-yellow-500" />, 
-    bgColor: 'bg-yellow-100' 
-  },
-  { 
-    title: 'Total Customers', 
-    value: '772', 
-    change: '-5.7%', 
-    changeValue: '$235', 
-    icon: <UsergroupAddOutlined className="text-xl text-red" />, 
-    bgColor: 'bg-red-100' 
-  },
-];
+
 
 
 const dashboardButtons = [
@@ -47,38 +24,10 @@ function DashboardPage() {
         totalSales: 0,
       });
     const [activeButton, setActiveButton] = useState("Sales"); 
-    const [orders, setOrders] = useState([]);
-    const [_, setLoading] = useState(true);
+    const [_, setOrders] = useState([]);
+    const [__, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     if (activeButton === "Orders") {
-    //       getAllOrders().then((data) => {
-    //         setOrders(data);
-    //       });
-    //     }
-    //     const fetchMetrics = async () => {
-    //         try {
-    //           const [customers, orders, sales] = await Promise.all([
-    //             getTotalCustomers(),
-    //             getTotalOrders(),
-    //             getTotalSales(),
-    //           ]);
-      
-    //           setMetrics({
-    //             totalCustomers: customers.total, // структура залежить від API
-    //             totalOrders: orders.total,
-    //             totalSales: sales.total,
-    //           });
-    //         } catch (err) {
-    //           console.error(err);
-    //           message.error('Failed to load dashboard metrics');
-    //         } finally {
-    //           setLoading(false);
-    //         }
-    //       };
-      
-    //       fetchMetrics();
-    //   }, [activeButton]);
+    
     useEffect(() => {
         // Завантажуємо метрики
         const fetchMetrics = async () => {
@@ -148,47 +97,25 @@ function DashboardPage() {
           bgColor: 'bg-green-100',
         },
       ];
-    
+
+
       const dashboardContent = () => {
         switch (activeButton) {
           case "Sales":
-            return <div>Sales Content</div>;
+            return <SalesChart />;
           case "Orders":
-            return (
-              <div>
-                {orders.length === 0 ? (
-                  <p>No orders yet</p>
-                ) : (
-                  orders.map((order) => (
-                    <div key={order.id} className="p-2 border-b">
-                      Order #{order.id} — {order.orderStatus}
-                    </div>
-                  ))
-                )}
-              </div>
-            );
+            return <OrdersChart />;
+       
           case "Customers":
-            return <div>Customers Content</div>;
+            return <CustomersChart />;
           case "Revenue":
-            return <div>Revenue Content</div>;
+            return <SalesChart />;
           default:
             return null;
         }
       };
-    //   const dashboardButtons = () => {
-    //     switch (activeButton) {
-    //       case "Sales":
-    //         return <DashboardSales />;
-    //       case "Orders":
-    //         return <DashboardOrders />;
-    //       case "Customers":
-    //         return <DashboardCustomers />;
-    //       case "Revenue":
-    //         return <DashboardRevenue />;
-    //       default:
-    //         return null;
-    //     }
-    //   };
+  
+    
 
   return (
     <div className="space-y-8  ">
@@ -220,9 +147,7 @@ function DashboardPage() {
         </div>
       {/* 1. Секція Карток Метрик */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-        {dashboardMetrics.map((metric) => (
-          <DashboardCard key={metric.title} {...metric} />
-        ))}
+      
          
     {cardsData.map((card, idx) => (
      
@@ -252,21 +177,10 @@ function DashboardPage() {
         })}
       </div>
 
-      <div className="bg-white p-6 shadow-md rounded-xl">
-      <h2 className="text-xl font-secondary font-semibold text-main-text mb-4">
-          Statistic — <span className="text-[#2c6e49]">{activeButton}</span>
-        </h2>   
-        <div className="bg-white p-6 shadow-md rounded-xl">
-        <h2 className="text-xl font-semibold text-main-text mb-4">
-          Statistic — <span className="text-[#2c6e49]">{activeButton}</span>
-        </h2>
+      <div className="bg-white p-6 h-[600px] shadow-md rounded-xl">
+       
         {dashboardContent()}
-      </div>
-        {/* <div className="h-96 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
-          <p className="text-addition-text">
-            Showing {activeButton} data...
-          </p>
-        </div> */}
+      
       </div>
       
     </div>
