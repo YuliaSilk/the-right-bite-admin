@@ -1,16 +1,86 @@
-# React + Vite
+The Right Bite Admin Dashboard (Адмін-панель Right Bite)
+Огляд проекту
+Цей репозиторій містить вихідний код адміністративної панелі для управління електронною комерцією (e-commerce). Панель розроблена для забезпечення повного контролю над ключовими бізнес-метриками, включаючи управління замовленнями, клієнтами та продажами.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Головна мета — надати менеджерам та адміністраторам інтуїтивно зрозумілий, швидкий та адаптивний інструмент для моніторингу ефективності та прийняття рішень на основі даних.
 
-Currently, two official plugins are available:
+Використані технології (Tech Stack)
+Проект побудований на сучасному стеку, орієнтованому на швидкість розробки та високу продуктивність інтерфейсу:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Фронтенд: React.js (з використанням функціональних компонентів та хуків).
 
-## React Compiler
+Стилізація: Tailwind CSS (для швидкої, адаптивної та модульної верстки).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+UI-Бібліотека: Ant Design (для готових, високоякісних UI-компонентів, таких як таблиці, форми та елементи вибору дати).
 
-## Expanding the ESLint configuration
+Візуалізація даних: Recharts (для побудови інтерактивних та адаптивних графіків та діаграм).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Робота з датами: Day.js (легковажна та ефективна бібліотека для обробки та форматування дат, яка замінює moment.js).
+
+Логіка: JavaScript / ES6+.
+
+Ключова функціональність
+Dashboard Analytics: Відображення ключових показників ефективності (KPI) у реальному часі:
+
+Загальні продажі (Total Sales)
+
+Кількість замовлень (Total Orders)
+
+Унікальні клієнти (Unique Customers)
+
+Інтерактивна візуалізація:
+
+Графіки динаміки замовлень та середнього чека (BarChart).
+
+Можливість фільтрації даних за попередньо встановленими періодами (24 Hour, 7 Days, 30 Days, 12 Months) та кастомним діапазоном дат через RangePicker.
+
+Управління стилем: Кастомізація UI-компонентів Ant Design (наприклад, RangePicker) для повного узгодження з фірмовим зеленим стилем Right Bite (#2c6e49).
+
+Адаптивний дизайн: Повністю адаптивний інтерфейс, оптимізований для відображення на мобільних, планшетних та десктопних пристроях.
+
+Початок роботи
+Передумови
+Для запуску проекту вам необхідно встановити:
+
+Node.js (рекомендовано LTS версію)
+
+npm або yarn (менеджер пакетів)
+
+Встановлення
+Клонуйте репозиторій та встановіть залежності:
+
+git clone [https://github.com/YuliaSilk/the-right-bite-admin.git](https://github.com/YuliaSilk/the-right-bite-admin.git)
+cd the-right-bite-admin
+npm install # або yarn install
+
+Запуск проекту
+Запустіть проект у режимі розробки:
+
+npm start # або yarn start
+
+Додаток буде доступний за адресою http://localhost:3000.
+
+Структура проекту
+.
+├── src/
+│   ├── api/          # Файли для взаємодії з API (getTotalOrders, getTotalSales)
+│   ├── components/   # Перевикористовувані React-компоненти (OrdersChart, DateRangePickerComponent)
+│   ├── pages/        # Сторінки (Dashboard, Order Management)
+│   └── App.js        # Головний компонент
+└── tailwind.config.js # Налаштування Tailwind CSS
+
+Внесок (Contributing)
+Ми вітаємо будь-який внесок у покращення проекту! Якщо у вас є пропозиції, повідомлення про помилки або запити на нові функції, будь ласка:
+
+Створіть Fork цього репозиторію.
+
+Створіть нову гілку для своєї функції (git checkout -b feature/AmazingFeature).
+
+Закомітьте свої зміни (git commit -m 'Add AmazingFeature').
+
+Надішліть зміни на гілку (git push origin feature/AmazingFeature).
+
+Створіть Pull Request.
+
+Ліцензія
+Розповсюджується під ліцензією MIT. Дивіться файл LICENSE для отримання додаткової інформації.
