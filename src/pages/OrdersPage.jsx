@@ -5,84 +5,84 @@ import { useEffect } from 'react';
 
 const { RangePicker } = DatePicker;
 
-const columns = [
-  {
-    title: 'Order Id',
-    dataIndex: 'orderId',
-    key: 'orderId',
-    render: (text) => <a className="text-main-text font-semibold">{text}</a>,
-  },
-  {
-    title: 'Product',
-    dataIndex: 'product',
-    key: 'product',
-    render: (text, record) => (
-        // Відображення назви продукту та кількості (qty)
-        <div className="flex flex-col">
-            <span className="text-main-text font-semibold">{text}</span>
-            <span className="text-addition-text text-xs">{record.qty}</span>
-        </div>
-    )
-  },
-  {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-    sorter: (a, b) => new Date(a.date) - new Date(b.date),
-  },
-  {
-    title: 'Total',
-    dataIndex: 'total',
-    key: 'total',
-    render: (value) => <span className="font-semibold">{`€${value.toFixed(2)}`}</span>,
-  },
-  {
-    title: 'Payment',
-    dataIndex: 'payment',
-    key: 'payment',
-    render: (payment) => {
-        const color = payment === 'Paid' ? 'success' : 'red';
-        return <Tag color={color} className="font-semibold">{payment}</Tag>;
-    }
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (status) => {
-      let color;
-      if (status === 'Delivered') {
-        color = 'success';
-      } else if (status === 'Pending') {
-        color = 'warning';
-      } else if (status === 'Cancelled') {
-        color = 'red';
-      } else {
-        color = 'blue';
-      }
-      return <Tag color={color} key={status} className="font-semibold">{status}</Tag>;
-    },
-  },
-  {
-    title: '', 
-    key: 'action',
-    align: 'right',
-    render: () => (
-      <Dropdown
-        menu={{ 
-            items: [
-                { key: '1', label: 'View Details' },
-                { key: '2', label: 'Send Invoice' },
-                { key: '3', label: 'Cancel Order', danger: true },
-            ] 
-        }}
-        placement="bottomRight"
-      >
-        <Button type="text" icon={<MoreOutlined className="text-xl" />} />
-      </Dropdown>
-    ),
-  },
-];
+// const columns = [
+//   {
+//     title: 'Order Id',
+//     dataIndex: 'orderId',
+//     key: 'orderId',
+//     render: (text) => <a className="text-main-text font-semibold">{text}</a>,
+//   },
+//   {
+//     title: 'Product',
+//     dataIndex: 'product',
+//     key: 'product',
+//     render: (text, record) => (
+//         // Відображення назви продукту та кількості (qty)
+//         <div className="flex flex-col">
+//             <span className="text-main-text font-semibold">{text}</span>
+//             <span className="text-addition-text text-xs">{record.qty}</span>
+//         </div>
+//     )
+//   },
+//   {
+//     title: 'Date',
+//     dataIndex: 'date',
+//     key: 'date',
+//     sorter: (a, b) => new Date(a.date) - new Date(b.date),
+//   },
+//   {
+//     title: 'Total',
+//     dataIndex: 'total',
+//     key: 'total',
+//     render: (value) => <span className="font-semibold">{`€${value.toFixed(2)}`}</span>,
+//   },
+//   {
+//     title: 'Payment',
+//     dataIndex: 'payment',
+//     key: 'payment',
+//     render: (payment) => {
+//         const color = payment === 'Paid' ? 'success' : 'red';
+//         return <Tag color={color} className="font-semibold">{payment}</Tag>;
+//     }
+//   },
+//   {
+//     title: 'Status',
+//     dataIndex: 'status',
+//     key: 'status',
+//     render: (status) => {
+//       let color;
+//       if (status === 'Delivered') {
+//         color = 'success';
+//       } else if (status === 'Pending') {
+//         color = 'warning';
+//       } else if (status === 'Cancelled') {
+//         color = 'red';
+//       } else {
+//         color = 'blue';
+//       }
+//       return <Tag color={color} key={status} className="font-semibold">{status}</Tag>;
+//     },
+//   },
+//   {
+//     title: '', 
+//     key: 'action',
+//     align: 'right',
+//     render: () => (
+//       <Dropdown
+//         menu={{ 
+//             items: [
+//                 { key: '1', label: 'View Details' },
+//                 { key: '2', label: 'Send Invoice' },
+//                 { key: '3', label: 'Cancel Order', danger: true },
+//             ] 
+//         }}
+//         placement="bottomRight"
+//       >
+//         <Button type="text" icon={<MoreOutlined className="text-xl" />} />
+//       </Dropdown>
+//     ),
+//   },
+// ];
 
 
 function OrdersPage() {
@@ -90,7 +90,95 @@ function OrdersPage() {
   const [loading, setLoading] = useState(false);
 
 const token = import.meta.env.VITE_API_TOKEN;
-  
+const columns = [
+    {
+      title: 'Order ID',
+      dataIndex: 'orderId',
+      key: 'orderId',
+      render: (text) => <a className="text-main-text font-semibold">{text}</a>,
+    },
+    {
+      title: 'Products',
+      dataIndex: 'items',
+      key: 'items',
+      render: (items) => {
+        if (!items || items.length === 0) return <i>No items</i>;
+        return (
+          <div className="flex flex-col gap-1">
+            {items.map((item, idx) => (
+              <div key={idx}>
+                <strong>{item.productName}</strong> × {item.quantity}
+              </div>
+            ))}
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+    },
+    {
+      title: 'Total',
+      dataIndex: 'total',
+      key: 'total',
+      render: (value) => (
+        <span className="font-semibold">{`€${Number(value).toFixed(2)}`}</span>
+      ),
+    },
+    {
+      title: 'Payment',
+      dataIndex: 'payment',
+      key: 'payment',
+      render: (payment) => {
+        const color = payment === 'Paid' ? 'success' : 'red';
+        return (
+          <Tag color={color} className="font-semibold">
+            {payment}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => {
+        let color;
+        if (status === 'Delivered') color = 'success';
+        else if (status === 'Pending') color = 'warning';
+        else if (status === 'Cancelled') color = 'red';
+        else color = 'blue';
+
+        return (
+          <Tag color={color} key={status} className="font-semibold">
+            {status}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: '',
+      key: 'action',
+      align: 'right',
+      render: () => (
+        <Dropdown
+          menu={{
+            items: [
+              { key: '1', label: 'View Details' },
+              { key: '2', label: 'Send Invoice' },
+              { key: '3', label: 'Cancel Order', danger: true },
+            ],
+          }}
+          placement="bottomRight"
+        >
+          <Button type="text" icon={<MoreOutlined className="text-xl" />} />
+        </Dropdown>
+      ),
+    },
+  ];
     useEffect(() => {
         const fetchOrders = async () => {
           setLoading(true);
@@ -123,6 +211,7 @@ const token = import.meta.env.VITE_API_TOKEN;
               return {
                 key: order.id,
                 orderId: `ID-${order.id}`,
+                items: order.items || [],
                 product: productName,
                 qty,
                 date,

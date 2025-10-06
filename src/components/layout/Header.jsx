@@ -9,7 +9,7 @@ export default function Header() {
         <div>
 <img src="/src/assets/logo_right _bite.png" alt="logo" className="w-auto h-[52px] ml-18" />
 </div>
-      <div className="relative w-1/3">
+      <div className="relative w-1/3 h-[32px] items-center self-center">
         <input 
           type="text" 
           placeholder="Search data, users, or reports" 

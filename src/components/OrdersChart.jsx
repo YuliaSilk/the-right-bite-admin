@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import { Typography } from 'antd';
 import {  getTotalOrders, getTotalSales } from '../api/ordersAPI';
+import DateRangePicker from './DatePicker';
 
 const { Title } = Typography;
 
@@ -32,7 +33,7 @@ const OrdersChart = () => {
   const [data, _] = useState(mockData);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState('all');
-  const [dateRange] = useState('01 Jan - 31 Dec 2025');
+  // const [dateRange] = useState('01 Jan - 31 Dec 2025');
   const [orderCount, setOrderCount] = useState(0);
   const [avgCheck, setAvgCheck] = useState(0);
 
@@ -120,17 +121,15 @@ const OrdersChart = () => {
             </span>
           </div>
         </div>
+        <DateRangePicker 
+        setPeriod={setPeriod} 
+        // fetchChartData={fetchStats} 
+        />
 
-        <div className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <rect x="3" y="4" width="14" height="13" rx="2" stroke="#666" strokeWidth="1.5" />
-            <path d="M3 8h14M7 3v2M13 3v2" stroke="#666" strokeWidth="1.5" />
-          </svg>
-          <span className="text-sm text-gray-700">{dateRange}</span>
-        </div>
-      </div>
+     
+       </div>  
 
-      {/* Графік */}
+      
       <ResponsiveContainer width="100%" height={350}>
         <BarChart
           data={data}

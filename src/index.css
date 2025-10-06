@@ -34,3 +34,20 @@ html, body, #root {
   background-color: var(--background);
   color: var(--main-text);
 }
+
+:where(.css-dev-only-do-not-override-1odpy5d).ant-picker .ant-picker-input >input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  color: #2d6b41;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  transition: all 0.2s;
+  flex: auto;
+  min-width: 1px;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+}

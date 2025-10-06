@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import { Typography, Card } from 'antd';
 import { UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import DateRangePicker from './DatePicker';
 
 const { Title, Text } = Typography;
 
@@ -33,7 +34,6 @@ const CustomersChart = () => {
   const [data, setData] = useState(mockData);
   const [loading, _] = useState(false);
   const [period, setPeriod] = useState('all');
-  const [dateRange] = useState('01 Jan - 31 Dec 2025');
 
   useEffect(() => {
     // Логіка фільтрації
@@ -105,12 +105,9 @@ const CustomersChart = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="4" width="14" height="13" rx="2" stroke="#666" strokeWidth="1.5" />
-            <path d="M3 8h14M7 3v2M13 3v2" stroke="#666" strokeWidth="1.5" />
-          </svg>
-          <span className="text-sm text-gray-700">{dateRange}</span>
+        <div className="flex items-center gap-2  rounded-lg">
+        <DateRangePicker 
+        />
         </div>
       </div>
 
