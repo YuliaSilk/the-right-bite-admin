@@ -1,16 +1,15 @@
 // src/components/dashboard/DashboardCard.jsx
 import React from 'react';
-import { Card, Button, Dropdown } from 'antd'; // Використовуємо компоненти AntD
+import { Card, Button, Dropdown } from 'antd'; 
 import { EllipsisOutlined } from '@ant-design/icons';
 
 export default function DashboardCard({ title, value, change, changeValue, icon, bgColor }) {
-  // Визначаємо колір тексту для відсотка
   const isPositive = change.startsWith('+');
   const changeColor = isPositive ? 'text-success' : 'text-red';
 
   return (
     // Використовуємо компонент Card від AntD для гарного вигляду
-    <Card className="rounded-xl shadow-lg border-none" bodyStyle={{ padding: '24px' }}>
+    <Card className="rounded-xl shadow-lg border-none p-6" >
       <div className="flex justify-between items-start">
         <div className="flex items-center space-x-4">
           {/* Іконка */}

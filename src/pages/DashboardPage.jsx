@@ -1,9 +1,10 @@
 // src/pages/DashboardPage.jsx
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import DashboardCard from '../components/DashboardCard';
 import { AreaChartOutlined, DollarCircleOutlined, UsergroupAddOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import {  BellOutlined } from '@ant-design/icons';
-// Дані для карток (поки статичні)
+import { getTotalCustomers, getTotalOrders, getTotalSales, getAllOrders } from "../api/ordersAPI";
+import { message, Row, Col } from 'antd';
+
 const dashboardMetrics = [
   { 
     title: 'Total Sales', 
@@ -31,28 +32,164 @@ const dashboardMetrics = [
   },
 ];
 
-const dashboardButtons = [
-{
-    id: 1,
-title:"Sales"
-},
-{
-    id: 2,
-title:"Orders"
-},
-{
-    id: 3,
-title:"Customers"
-},
-{
-    id: 4,
-title:"Revenue"
-},
-]
 
+const dashboardButtons = [
+    { id: 1, title: "Sales" },
+    { id: 2, title: "Orders" },
+    { id: 3, title: "Customers" },
+    { id: 4, title: "Revenue" },
+  ];
 
 function DashboardPage() {
+    const [metrics, setMetrics] = useState({
+        totalCustomers: 0,
+        totalOrders: 0,
+        totalSales: 0,
+      });
     const [activeButton, setActiveButton] = useState("Sales"); 
+    const [orders, setOrders] = useState([]);
+    const [_, setLoading] = useState(true);
+
+    // useEffect(() => {
+    //     if (activeButton === "Orders") {
+    //       getAllOrders().then((data) => {
+    //         setOrders(data);
+    //       });
+    //     }
+    //     const fetchMetrics = async () => {
+    //         try {
+    //           const [customers, orders, sales] = await Promise.all([
+    //             getTotalCustomers(),
+    //             getTotalOrders(),
+    //             getTotalSales(),
+    //           ]);
+      
+    //           setMetrics({
+    //             totalCustomers: customers.total, // структура залежить від API
+    //             totalOrders: orders.total,
+    //             totalSales: sales.total,
+    //           });
+    //         } catch (err) {
+    //           console.error(err);
+    //           message.error('Failed to load dashboard metrics');
+    //         } finally {
+    //           setLoading(false);
+    //         }
+    //       };
+      
+    //       fetchMetrics();
+    //   }, [activeButton]);
+    useEffect(() => {
+        // Завантажуємо метрики
+        const fetchMetrics = async () => {
+          try {
+            setLoading(true);
+            const [customers, ordersCount, sales] = await Promise.all([
+              getTotalCustomers(),
+              getTotalOrders(),
+              getTotalSales(),
+            ]);
+    
+            setMetrics({
+              totalCustomers: customers || 0,
+              totalOrders: ordersCount || 0,
+              totalSales: sales || 0,
+            });
+          } catch (err) {
+            console.error(err);
+            message.error('Failed to load dashboard metrics');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchMetrics();
+      }, []);
+    
+      useEffect(() => {
+        // Завантажуємо замовлення, якщо активна кнопка "Orders"
+        if (activeButton === "Orders") {
+          const fetchOrders = async () => {
+            try {
+              const data = await getAllOrders();
+              setOrders(data || []);
+            } catch (err) {
+              console.error(err);
+              message.error('Failed to load orders');
+            }
+          };
+          fetchOrders();
+        }
+      }, [activeButton]);
+
+      const cardsData = [
+        {
+          title: 'Total Customers',
+          value: metrics.totalCustomers,
+          change: '+5%',
+          changeValue: '1,024',
+          icon: <UsergroupAddOutlined className="text-xl text-primary" />,
+          bgColor: 'bg-primary/10',
+        },
+        {
+          title: 'Total Orders',
+          value: metrics.totalOrders,
+          change: '+10%',
+          changeValue: '500',
+          icon: <ShoppingCartOutlined className="text-xl text-warning" />,
+          bgColor: 'bg-yellow-100',
+        },
+        {
+          title: 'Total Sales',
+          value: `€${metrics.totalSales}`,
+          change: '+15%',
+          changeValue: '€12,340',
+          icon: <DollarCircleOutlined className="text-xl text-success" />,
+          bgColor: 'bg-green-100',
+        },
+      ];
+    
+      const dashboardContent = () => {
+        switch (activeButton) {
+          case "Sales":
+            return <div>Sales Content</div>;
+          case "Orders":
+            return (
+              <div>
+                {orders.length === 0 ? (
+                  <p>No orders yet</p>
+                ) : (
+                  orders.map((order) => (
+                    <div key={order.id} className="p-2 border-b">
+                      Order #{order.id} — {order.orderStatus}
+                    </div>
+                  ))
+                )}
+              </div>
+            );
+          case "Customers":
+            return <div>Customers Content</div>;
+          case "Revenue":
+            return <div>Revenue Content</div>;
+          default:
+            return null;
+        }
+      };
+    //   const dashboardButtons = () => {
+    //     switch (activeButton) {
+    //       case "Sales":
+    //         return <DashboardSales />;
+    //       case "Orders":
+    //         return <DashboardOrders />;
+    //       case "Customers":
+    //         return <DashboardCustomers />;
+    //       case "Revenue":
+    //         return <DashboardRevenue />;
+    //       default:
+    //         return null;
+    //     }
+    //   };
+
   return (
     <div className="space-y-8  ">
       {/* Привітання */}
@@ -86,6 +223,13 @@ function DashboardPage() {
         {dashboardMetrics.map((metric) => (
           <DashboardCard key={metric.title} {...metric} />
         ))}
+         
+    {cardsData.map((card, idx) => (
+     
+        <DashboardCard key={idx}{...card} />
+     
+    ))}
+  
       </div>
       <div className="flex justify-between">
         {dashboardButtons.map((button) => {
@@ -111,12 +255,18 @@ function DashboardPage() {
       <div className="bg-white p-6 shadow-md rounded-xl">
       <h2 className="text-xl font-secondary font-semibold text-main-text mb-4">
           Statistic — <span className="text-[#2c6e49]">{activeButton}</span>
-        </h2>       
-        <div className="h-96 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+        </h2>   
+        <div className="bg-white p-6 shadow-md rounded-xl">
+        <h2 className="text-xl font-semibold text-main-text mb-4">
+          Statistic — <span className="text-[#2c6e49]">{activeButton}</span>
+        </h2>
+        {dashboardContent()}
+      </div>
+        {/* <div className="h-96 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
           <p className="text-addition-text">
             Showing {activeButton} data...
           </p>
-        </div>
+        </div> */}
       </div>
       
     </div>
