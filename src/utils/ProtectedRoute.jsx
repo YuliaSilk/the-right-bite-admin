@@ -1,11 +1,16 @@
 import {useAuth} from "../hooks/useAuth";
+import {Navigate} from "react-router-dom";
 
 const ProtectedRoute = ({children}) => {
  const {isAuthenticated} = useAuth();
 
  if (!isAuthenticated) {
-  window.location.href = "/admin/login";
-  return null;
+  return (
+   <Navigate
+    to="/admin/login"
+    replace
+   />
+  );
  }
 
  return children;
