@@ -31,14 +31,11 @@ const AdminLogin = () => {
    if (res.ok) {
     const data = await res.json();
 
-    // Зберігаємо токени в localStorage
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
 
-    // Опціонально: зберігаємо email адміна
     localStorage.setItem("adminEmail", email);
 
-    // Перенаправляємо на дашборд
     navigate("/admin/dashboard");
    } else if (res.status === 404) {
     setError("Email not found.");
@@ -57,7 +54,6 @@ const AdminLogin = () => {
 
  return (
   <div className="min-h-screen flex bg-gray-100">
-   {/* Left Side - Image */}
    <div
     className="hidden lg:flex lg:w-1/2 bg-cover bg-center bg-no-repeat"
     style={{
@@ -65,21 +61,17 @@ const AdminLogin = () => {
     }}
    />
 
-   {/* Right Side - Form */}
    <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12 bg-white">
     <div className="w-full max-w-md space-y-8">
-     {/* Header */}
      <div className="text-center">
       <h1 className="text-3xl font-semibold text-gray-900 mb-2">Welcome back Admin</h1>
       <p className="text-gray-600">Sign in to manage your dashboard</p>
      </div>
 
-     {/* Form */}
      <form
       onSubmit={handleLogin}
       className="mt-8 space-y-6"
      >
-      {/* Email Field */}
       <div>
        <label
         htmlFor="email"
@@ -94,11 +86,10 @@ const AdminLogin = () => {
         onChange={(e) => setEmail(e.target.value)}
         required
         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#234D2E] focus:border-transparent outline-none transition"
-        placeholder="admin@email.com"
+        placeholder="Enter your email address"
        />
       </div>
 
-      {/* Password Field */}
       <div>
        <div className="flex justify-between items-center mb-2">
         <label
@@ -144,7 +135,6 @@ const AdminLogin = () => {
        </a>
       </div>
 
-      {/* Error Message */}
       {error && (
        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
       )}
@@ -183,17 +173,6 @@ const AdminLogin = () => {
        )}
       </button>
      </form>
-
-     {/* Sign Up Link */}
-     <p className="text-center text-sm text-gray-600">
-      Don't have an account?{" "}
-      <a
-       href="/admin/signup"
-       className="font-semibold text-gray-900 hover:underline"
-      >
-       Sign up
-      </a>
-     </p>
     </div>
    </div>
   </div>
