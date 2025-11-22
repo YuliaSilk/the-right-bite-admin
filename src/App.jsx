@@ -14,18 +14,24 @@ function App() {
    <BrowserRouter>
     <Routes>
      <Route
-      path="/admin/login"
-      element={<AdminLogin />}
-     />
-
-     <Route
       path="/"
       element={
        <Navigate
-        to="/admin/dashboard"
+        to="/admin/login"
         replace
        />
       }
+     />
+     {/* <Route
+      path="/"
+      element={
+       <Navigate
+        to="/admin/login"
+        replace
+       /> */}
+     <Route
+      path="/admin/login"
+      element={<AdminLogin />}
      />
 
      <Route

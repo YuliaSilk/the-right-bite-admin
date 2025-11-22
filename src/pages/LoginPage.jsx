@@ -139,7 +139,6 @@ const AdminLogin = () => {
        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>
       )}
 
-      {/* Submit Button */}
       <button
        type="submit"
        disabled={isLoading}
