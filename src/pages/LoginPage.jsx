@@ -20,7 +20,7 @@ const AdminLogin = () => {
   setIsLoading(true);
 
   try {
-   const res = await fetch("https://right-bite-store.onrender.com/api/v1/auth/sing-in", {
+   const res = await fetch("https://right-bite-store.onrender.com/api/v1/auth/sign-in", {
     method: "POST",
     headers: {
      "Content-Type": "application/json",
