@@ -6,7 +6,7 @@ export default function Header() {
    <div className="w-[1320px] mx-auto py-4 flex justify-between self-center  ">
     <div>
      <img
-      src="/public/logo-right-bite.png"
+      src="/logo-right-bite.png"
       alt="logo"
       className="w-auto h-[52px] ml-18"
      />
